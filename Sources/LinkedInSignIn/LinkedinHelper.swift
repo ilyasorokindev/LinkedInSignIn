@@ -111,7 +111,7 @@ extension LinkedinHelper {
         let grantType = "authorization_code"
         var postParams = "grant_type=\(grantType)&"
         postParams += "code=\(authorizationCode)&"
-        postParams += "redirect_uri=\(linkedInConfig.redirectURL)&"
+        postParams += "redirect_uri=\(linkedInConfig.redirectURL.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "")&"
         postParams += "client_id=\(linkedInConfig.linkedInKey)&"
         postParams += "client_secret=\(linkedInConfig.linkedInSecret)"
         

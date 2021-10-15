@@ -72,7 +72,7 @@ class LinkedInLoginVC: UIViewController {
         authorizationURL += "client_id=\(linkedInConfig.linkedInKey)&"
         authorizationURL += "redirect_uri=\(linkedInConfig.redirectURL.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "")&"
         authorizationURL += "state=\(state)&"
-        authorizationURL += "scope=\(scope)"
+        authorizationURL += "scope=\(scope.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "")"
         
         print(authorizationURL)
         
