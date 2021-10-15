@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MBProgressHUD
 import WebKit
 
 enum LinkedInLoginError: Error {
@@ -146,24 +145,24 @@ extension LinkedInLoginVC {
 
 extension LinkedInLoginVC {
     func showHUD() {
-        DispatchQueue.main.async {
-            let progressHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-            UIActivityIndicatorView.appearance(whenContainedInInstancesOf: [MBProgressHUD.self]).color = UIColor.white
-            if let labeltext = self.loadingTitleString {
-                progressHUD?.labelText = labeltext
-            }
-            if let labelFont = self.loadingTitleFont {
-                progressHUD?.labelFont = labelFont
-            }
-            progressHUD?.color = UIColor(red: 0.0/255.0, green: 119.0/255.0, blue: 181.0/255.0, alpha: 1.0)
-            progressHUD?.bringSubviewToFront(self.view)
-        }
+//        DispatchQueue.main.async {
+//            let progressHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
+//            UIActivityIndicatorView.appearance(whenContainedInInstancesOf: [MBProgressHUD.self]).color = UIColor.white
+//            if let labeltext = self.loadingTitleString {
+//                progressHUD?.labelText = labeltext
+//            }
+//            if let labelFont = self.loadingTitleFont {
+//                progressHUD?.labelFont = labelFont
+//            }
+//            progressHUD?.color = UIColor(red: 0.0/255.0, green: 119.0/255.0, blue: 181.0/255.0, alpha: 1.0)
+//            progressHUD?.bringSubviewToFront(self.view)
+//        }
     }
     
     func hideHUD() {
-        DispatchQueue.main.async {
-            MBProgressHUD.hide(for: self.view, animated: true)
-        }
+//        DispatchQueue.main.async {
+//            MBProgressHUD.hide(for: self.view, animated: true)
+//        }
     }
 }
 
