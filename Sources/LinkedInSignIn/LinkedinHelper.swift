@@ -14,7 +14,7 @@ enum LinkedinHelperError: Error {
     case error(String)
 }
 
-public class LinkedinHelper: NSObject {
+public class LinkedinHelper {
     var linkedInConfig: LinkedInConfig! = nil
     var linkedInLoginVC: LinkedInLoginVC! = nil
     var completion: ((String) -> Void)? = nil
