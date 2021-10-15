@@ -14,7 +14,7 @@ enum LinkedinHelperError: Error {
     case error(String)
 }
 
-@objc public class LinkedinHelper: NSObject {
+public class LinkedinHelper: NSObject {
     var linkedInConfig: LinkedInConfig! = nil
     var linkedInLoginVC: LinkedInLoginVC! = nil
     var completion: ((String) -> Void)? = nil
@@ -23,11 +23,17 @@ enum LinkedinHelperError: Error {
     
     let accessTokenEndPoint = "https://www.linkedin.com/uas/oauth2/accessToken"
     
-    @objc public init(linkedInConfig: LinkedInConfig) {
+    public init(linkedInConfig: LinkedInConfig) {
         self.linkedInConfig = linkedInConfig
     }
     
-    @objc public func login(from viewController: UIViewController, loadingTitleString: String? = nil,  loadingTitleFont: UIFont? = nil, navigationColor: UIColor = UIColor(red: 0, green: 119.0 / 255.0, blue: 181.0 / 255.0, alpha: 1.0), completion: @escaping (String) -> Void, failure: @escaping (Error) -> Void, cancel: @escaping () -> Void) {
+    public func login(from viewController: UIViewController? = nil,
+                      loadingTitleString: String? = nil,
+                      loadingTitleFont: UIFont? = nil,
+                      navigationColor: UIColor = UIColor(red: 0, green: 119.0 / 255.0, blue: 181.0 / 255.0, alpha: 1.0),
+                      completion: @escaping (String) -> Void,
+                      failure: @escaping (Error) -> Void,
+                      cancel: @escaping () -> Void) {
         self.completion = completion
         self.failure = failure
         self.cancel = cancel
@@ -51,7 +57,9 @@ enum LinkedinHelperError: Error {
                 })
             }
         }
-        viewController.present(linkedInLoginVC, animated: true, completion: nil)
+        let viewController = viewController ??  UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController
+        assert(viewController != nil, "The ViewController is nil")
+        viewController?.present(linkedInLoginVC, animated: true, completion: nil)
     }
     
     public func logOut(_ completion: (() -> Void)? = nil) {
@@ -59,7 +67,7 @@ enum LinkedinHelperError: Error {
         WKWebsiteDataStore.default().removeData(ofTypes: dataTypes, modifiedSince: NSDate.distantPast, completionHandler: completion ?? {})
     }
     
-    @objc func logOut() {
+    func logOut() {
         self.logOut(nil)
     }
 }
