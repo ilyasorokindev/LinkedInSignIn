@@ -65,7 +65,7 @@ class LinkedInLoginVC: UIViewController {
     
     func startAuthorization(_ scope: String) {
         let responseType = "code"
-        let state = "linkedin\(Int(NSDate().timeIntervalSince1970))"
+        let state = self.linkedInConfig.state
         
         var authorizationURL = "\(authorizationEndPoint)?"
         authorizationURL += "response_type=\(responseType)&"
