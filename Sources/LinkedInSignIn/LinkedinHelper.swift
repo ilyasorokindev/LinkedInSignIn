@@ -31,6 +31,7 @@ public class LinkedinHelper {
                       loadingTitleString: String? = nil,
                       loadingTitleFont: UIFont? = nil,
                       navigationColor: UIColor = UIColor(red: 0, green: 119.0 / 255.0, blue: 181.0 / 255.0, alpha: 1.0),
+                      authorizationCodeAction: ((String) -> Void)?,
                       completion: @escaping (String) -> Void,
                       failure: @escaping (Error) -> Void,
                       cancel: @escaping () -> Void) {
@@ -44,8 +45,12 @@ public class LinkedinHelper {
         linkedInLoginVC.loadingTitleFont = loadingTitleFont
         linkedInLoginVC.navigationColor = navigationColor
         linkedInLoginVC.loadViewIfNeeded()
-        linkedInLoginVC.login(linkedInConfig: linkedInConfig, completion: { (code) in
-            self.requestForAccessToken(authorizationCode: code)
+        linkedInLoginVC.login(linkedInConfig: linkedInConfig, completion: { code in
+            if let authorizationCodeAction = authorizationCodeAction {
+                authorizationCodeAction(code)
+            } else {
+                self.requestForAccessToken(authorizationCode: code)
+            }
         }, failure: { (error) in
             self.failureError(error)
         }) {
