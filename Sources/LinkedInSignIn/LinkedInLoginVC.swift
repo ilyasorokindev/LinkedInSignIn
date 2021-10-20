@@ -95,9 +95,7 @@ extension LinkedInLoginVC: WKNavigationDelegate {
                 decisionHandler(.allow)
                 return
             }
-            if url.absoluteString.contains(linkedInConfig.redirectURL) && url.absoluteString.contains("code") {
-                let urlParts = url.absoluteString.components(separatedBy: "?")
-                let code = urlParts[1].components(separatedBy: "=")[1]
+            if url.absoluteString.contains(linkedInConfig.redirectURL), let code =  URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems?.first(where: { $0.name == "code" })?.value  {
                 isCompleted = true
                 completion(code)
                 decisionHandler(.cancel)
